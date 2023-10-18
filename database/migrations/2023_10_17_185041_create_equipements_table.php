@@ -16,6 +16,7 @@ return new class extends Migration
             $table->String('nom_Equipement');
             $table->String('descriptionEquipement');
             $table->String('localisationEquipement');
+            $table->timestamps();
         });
     }
 

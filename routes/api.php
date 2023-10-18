@@ -17,16 +17,17 @@ use App\Http\Controllers\Api\UtilisateurController;
 | Here is where you can register API routes for your application. These
 | routes are loaded by the RouteServiceProvider and all of them will
 | be assigned to the "api" middleware group. Make something great!
-|
-*/
-
-Route::get('/equipement/store', [EquipementController::class,"store"]);
-route::get('/equipement',[EquipementController::class,"index"   ]);
-/*
 Route::apiResource('/equipement', EquipementController::class);
 Route::apiResource('/incident', IncidentController::class);
 Route::apiResource('/prioriteincident', PrioriteIncidentController::class);
 Route::apiResource('/roleutilisateur', RoleUtilisateurController::class);
 Route::apiResource('/statutincident', StatutIncidentController::class);
 Route::apiResource('/utilisateur', UtilisateurController::class);
+|
 */
+
+Route::get('/equipement/index',[EquipementController::class,"index"]);
+Route::get('/equipement/show/{id}',[EquipementController::class,"show"]);
+Route::post('/equipement/store', [EquipementController::class,"store"]);
+Route::put('/equipement/update/{id}',[EquipementConroller::class,"update"]);
+Route::delete('/equipement/delete/{id}',[EquipementController::class,"destroy"]);

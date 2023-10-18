@@ -43,22 +43,15 @@ class EquipementController extends Controller
      */
     public function show($id)
     {
-        $equipement = Equipement::where("id",$id)->exits();
+        $equipement = Equipement::where("id_Equipement",$id)->get();
+
         if($equipement)
         {
-            $info = Equipement::find($id);
             return response()->json([
                 "statu"=>1,
                 "message"=>"Equipement trouvée",
-                "data"=> $info
+                "data"=> $equipement
             ],200,);
-        }
-        else
-        {
-            return response()->json([
-                "statu"=>0,
-                "message"=>"Equipement introuvable",
-            ],404);
         }
     }
 
@@ -67,26 +60,18 @@ class EquipementController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $equipement = Equipement::where("id",$id)->exits();
+        $equipement = Equipement::where("id_Equipement",$id)->get();
         if($equipement)
         {
-            $info = Equipement::find($id);
-            $info->nom_Equipement = $request->nom_Equipement;
-            $info->descriptionEquipement = $request->descriptionEquipement;
-            $info->localisationEquipement = $request->localisationEquipement;
+            $equipement->nom_Equipement = $request->nom_Equipement;
+            $equipement->descriptionEquipement = $request->descriptionEquipement;
+            $equipement->localisationEquipement = $request->localisationEquipement;
             $info->save();
             return response()->json([
                 "statu"=>1,
                 "message"=>"Mise à jour reussi",
                 "data"=> $info
             ],200,);
-        }
-        else
-        {
-            return response()->json([
-                "statu"=>0,
-                "message"=>"Equipement introuvable",
-            ],404);
         }
     }
 
@@ -95,23 +80,17 @@ class EquipementController extends Controller
      */
     public function destroy( $id)
     {
-        $equipement = Equipement::where("id",$id)->exits();
+        $equipement = Equipement::where("id_Equipement",$id)->first();
         if($equipement)
         {
-            $info = Equipement::find($id);
-            $info->delete();
+            $equipement->delete();
             return response()->json([
                 "statu"=>1,
-                "message"=>"Suppression réussi",
-                "data"=> $info
-            ],200,);
+                  "message"=>"Suppression réussi",
+                  "data"=> $equipement
+              ],200,);
         }
-        else
-        {
-            return response()->json([
-                "statu"=>0,
-                "message"=>"Equipement introuvable",
-            ],404);
-        }
+
+
     }
 }
