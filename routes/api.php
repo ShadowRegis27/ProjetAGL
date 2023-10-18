@@ -2,6 +2,12 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\EquipementController;
+use App\Http\Controllers\Api\IncidentController;
+use App\Http\Controllers\Api\PrioriteIncidentController;
+use App\Http\Controllers\Api\RoleUtilisateurController;
+use App\Http\Controllers\Api\StatutIncidentController;
+use App\Http\Controllers\Api\UtilisateurController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +20,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::get('/equipement/store', [EquipementController::class,"store"]);
+route::get('/equipement',[EquipementController::class,"index"   ]);
+/*
+Route::apiResource('/equipement', EquipementController::class);
+Route::apiResource('/incident', IncidentController::class);
+Route::apiResource('/prioriteincident', PrioriteIncidentController::class);
+Route::apiResource('/roleutilisateur', RoleUtilisateurController::class);
+Route::apiResource('/statutincident', StatutIncidentController::class);
+Route::apiResource('/utilisateur', UtilisateurController::class);
+*/

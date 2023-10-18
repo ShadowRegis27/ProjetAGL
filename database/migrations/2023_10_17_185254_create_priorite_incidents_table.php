@@ -11,7 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-//
+        Schema::create('priorite_incidents', function (Blueprint $table) {
+            $table->bigIncrements('id_Priorite_Incident');
+            $table->String('nom_Priorite_Incident');
+            $table->String('niveau_Priorite_Incident');
+        });
     }
 
     /**
@@ -19,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('priorite_incidents');
     }
 };

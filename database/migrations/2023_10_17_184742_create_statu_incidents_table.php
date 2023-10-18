@@ -11,7 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-//
+        Schema::create('statu_incidents', function (Blueprint $table) {
+            $table->bigIncrements('id_Statut_Incident');
+            $table->String('nom_Statut_Incident');
+        });
     }
 
     /**
@@ -19,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('statu_incidents');
     }
 };
