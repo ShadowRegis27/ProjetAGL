@@ -9,4 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class Incident extends Model
 {
     use HasFactory;
+    protected $table = "incidents";
+    protected $primaryKey="id_Incident";
+    protected $fillable = ['description_Incident'];
 }

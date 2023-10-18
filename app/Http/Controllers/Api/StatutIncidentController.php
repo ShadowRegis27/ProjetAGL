@@ -21,7 +21,17 @@ class StatutIncidentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // API Fonction d'ajout d'un statut d'incident
+        $request->validate([
+            "nom_Statut_Incident"=>"required"
+        ]);
+        $statuIncident = new StatuIncident();
+        $statuIncident->nom_Statut_Incident = $request->nom_Statut_Incident;
+        $statuIncident->save();
+        return response()->json([
+            "statut"=>1,
+            "message"=>"Statut d'incident enregistré"
+        ], 200);
     }
 
     /**
@@ -29,7 +39,17 @@ class StatutIncidentController extends Controller
      */
     public function show(string $id)
     {
-        //
+        // API Fonction d'affichage d'un statut d'incident
+        $statuIncident = StatuIncident::where("id_Statut_Incident",$id)->get();
+
+        if($statuIncident)
+        {
+            return response()->json([
+                "statut"=>1,
+                "message"=>"Statut d'incident trouvée",
+                "data"=> $statuIncident
+            ],200,);
+        }
     }
 
     /**
@@ -37,7 +57,17 @@ class StatutIncidentController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // API Fonction de modification d'un statut d'incident
+        $statuIncident = StatuIncident::where("id_Statut_Incident",$id)->first();
+        if($statuIncident)
+        {
+            $statuIncident->nom_Statut_Incident = $request->nom_Statut_Incident;
+            $statuIncident->save();
+            return response()->json([
+                "statut"=>1,
+                "message"=>"Statut d'incident modifié"
+            ],200,);
+        }
     }
 
     /**
@@ -45,6 +75,15 @@ class StatutIncidentController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        // API Fonction de suppression d'un statut d'incident
+        $statuIncident = StatuIncident::where("id_Statut_Incident",$id)->first();
+        if($statuIncident)
+        {
+            $statuIncident->delete();
+            return response()->json([
+                "statut"=>1,
+                "message"=>"Statut d'incident supprimé"
+            ],200,);
+        }
     }
 }

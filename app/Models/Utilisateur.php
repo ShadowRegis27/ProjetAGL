@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Model\role_utilisateur;
 
 class Utilisateur extends Model
 {
@@ -12,4 +13,7 @@ class Utilisateur extends Model
     {
         return $this->belongsTo(RoleUtilisateur::class);
     }
+    protected $table = "utilisateurs";
+    protected $primaryKey="id_Utilisateur";
+    protected $fillable = ['nom','prenom','email','password','id_Role_Utilisateur'];
 }

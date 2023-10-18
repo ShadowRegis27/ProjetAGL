@@ -8,9 +8,6 @@ use App\Models\Incident;
 
 class IncidentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         return Incident::all();
@@ -21,7 +18,17 @@ class IncidentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // API Fonction d'ajout d'un incident
+        $request->validate([
+            "description_Incident"=>"required",
+        ]);
+        $incident = new Incident();
+        $incident->description_Incident = $request->description_Incident;
+        $incident->save();
+        return response()->json([
+            "statut"=>1,
+            "message"=>"Incident enregistré"
+        ]);
     }
 
     /**
@@ -29,7 +36,17 @@ class IncidentController extends Controller
      */
     public function show(string $id)
     {
-        //
+        // API Recuperer et afficher une instance de l'incident
+        $incident = Incident::where("id_Incident",$id)->get();
+
+        if($incident){
+            return response()->json([
+                "statu"=>1,
+                "message"=>"Incident trouvée",
+                "data"=> $incident
+            ],200,);
+        }
+
     }
 
     /**
@@ -37,7 +54,18 @@ class IncidentController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // API Fonction de modification d'un incident
+        $incident = Incident::where("id_Incident",$id)->get();
+        if($incident){
+            $incident->descriptionIncident = $request->descriptionIncident;
+            $incident->dateIncident = $request->dateIncident;
+            $incident->save();
+            return response()->json([
+                "statut"=>1,
+                "message"=>"Incident modifié",
+                "data"=> $incident
+            ], 200);
+        }
     }
 
     /**
@@ -45,6 +73,15 @@ class IncidentController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        // API Fonction de suppression d'un incident
+        $incident = Incident::where("id_Incident",$id)->get();
+        if($incident){
+            $incident->delete();
+            return response()->json([
+                "statut"=>1,
+                "message"=>"Incident supprimé",
+                "data"=> $incident
+            ], 200);
+        }
     }
 }

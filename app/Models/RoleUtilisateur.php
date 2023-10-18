@@ -12,4 +12,7 @@ class RoleUtilisateur extends Model
     {
         return $this->hasMany(Utilisateur::class);
     }
+    protected $table = "role_utilisateurs";
+    protected $primaryKey="id_Role_Utilisateur";
+    protected $fillable = ['nom_Role_Utilisateur'];
 }
