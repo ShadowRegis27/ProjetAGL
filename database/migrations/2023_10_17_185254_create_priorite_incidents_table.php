@@ -15,6 +15,7 @@ return new class extends Migration
             $table->bigIncrements('id_Priorite_Incident');
             $table->String('nom_Priorite_Incident');
             $table->String('niveau_Priorite_Incident');
+            $table->timestamps();
         });
     }
 

@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('role_utilisateurs', function (Blueprint $table) {
             $table->bigIncrements('id_Role_Utilisateur');
             $table->String('nom_Role_Utilisateur');
+            $table->timestamps();
         });
     }
 

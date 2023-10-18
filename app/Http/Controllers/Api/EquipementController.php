@@ -60,13 +60,13 @@ class EquipementController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $equipement = Equipement::where("id_Equipement",$id)->get();
+        $equipement = Equipement::where("id_Equipement",$id)->first();
         if($equipement)
         {
             $equipement->nom_Equipement = $request->nom_Equipement;
             $equipement->descriptionEquipement = $request->descriptionEquipement;
             $equipement->localisationEquipement = $request->localisationEquipement;
-            $info->save();
+            $equipement->save();
             return response()->json([
                 "statu"=>1,
                 "message"=>"Mise à jour reussi",

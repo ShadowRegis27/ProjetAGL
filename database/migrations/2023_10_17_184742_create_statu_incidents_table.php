@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('statu_incidents', function (Blueprint $table) {
             $table->bigIncrements('id_Statut_Incident');
             $table->String('nom_Statut_Incident');
+            $table->timestamps();
         });
     }
 

@@ -19,13 +19,14 @@ return new class extends Migration
                 ->on('Incident')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
-            $table->unsignedBigInteger('id_Equipement');
-            $table->foreign('id_Equipement')
-                ->references('id_Equipement')
-                ->on('Equipement')
+            $table->unsignedBigInteger('id_prioriteincident');
+            $table->foreign('id_prioriteincident')
+                ->references('id_prioriteincident')
+                ->on('prioriteincident')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
             $table->String('contenu');
+            $table->timestamps();
         });
     }
 
