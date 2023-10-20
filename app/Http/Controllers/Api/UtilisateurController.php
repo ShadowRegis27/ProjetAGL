@@ -74,10 +74,9 @@ class UtilisateurController extends Controller
      */
     public function update(Request $request, string $id)
     {
-
-        $roleutilisateur = RoleUtilisateur::where("id_Role_Utilisateur", $request->id_Role_Utilisateur)->first();
-        $utilisateur = new Utilisateur();
-        if($roleutilisateur)
+        $utilisateur = Utilisateur::where("id_Utilisateur", $request->id_Role_Utilisateur)->first();;
+    //$roleutilisateur = RoleUtilisateur::where("id_Role_Utilisateur", $request->id_Role_Utilisateur)->first();
+        if($utilisateur)
         {
 
             $utilisateur->id_Role_Utilisateur = $request->id_Role_Utilisateur;
@@ -100,8 +99,18 @@ class UtilisateurController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+
+        $utilisateur = Utilisateur::where("id_Utilisateur", $id)->first();
+        if($utilisateur){
+            $utilisateur->delete();
+            return response()->json(
+                [
+                    "statut"=>1,
+                "message"=>"Utilisateur a été supprimer"
+                ],200
+            );
+        }
     }
 }

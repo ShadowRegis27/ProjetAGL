@@ -21,9 +21,15 @@ class IncidentController extends Controller
         // API Fonction d'ajout d'un incident
         $request->validate([
             "description_Incident"=>"required",
+            "id_Statut_Incident"=>"required",
+            "id_Priorite_Incident"=>"required",
+            "id_Utilisateur"=>"required"
         ]);
         $incident = new Incident();
         $incident->description_Incident = $request->description_Incident;
+        $incident->id_Statut_Incident = $request->id_Statut_Incident;
+        $incident->id_Priorite_Incident = $request->id_Priorite_Incident;
+        $incident->id_Utilisateur = $request->id_Utilisateur;
         $incident->save();
         return response()->json([
             "statut"=>1,
@@ -55,10 +61,12 @@ class IncidentController extends Controller
     public function update(Request $request, string $id)
     {
         // API Fonction de modification d'un incident
-        $incident = Incident::where("id_Incident",$id)->get();
+        $incident = Incident::where("id_Incident",$id)->first();
         if($incident){
-            $incident->descriptionIncident = $request->descriptionIncident;
-            $incident->dateIncident = $request->dateIncident;
+            $incident->description_Incident = $request->description_Incident;
+            $incident->id_Statut_Incident = $request->id_Statut_Incident;
+            $incident->id_Priorite_Incident = $request->id_Priorite_Incident;
+            $incident->id_Utilisateur = $request->id_Utilisateur;
             $incident->save();
             return response()->json([
                 "statut"=>1,
@@ -74,7 +82,7 @@ class IncidentController extends Controller
     public function destroy(string $id)
     {
         // API Fonction de suppression d'un incident
-        $incident = Incident::where("id_Incident",$id)->get();
+        $incident = Incident::where("id_Incident",$id)->first();
         if($incident){
             $incident->delete();
             return response()->json([

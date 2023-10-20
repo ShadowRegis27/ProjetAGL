@@ -11,5 +11,5 @@ class Incident extends Model
     use HasFactory;
     protected $table = "incidents";
     protected $primaryKey="id_Incident";
-    protected $fillable = ['description_Incident'];
+    protected $fillable = ['description_Incident','id_Statut_Incident','id_Priorite_Incident','id_Utilisateur'];
 }

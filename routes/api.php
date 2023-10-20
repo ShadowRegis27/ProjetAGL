@@ -27,7 +27,7 @@ Route::delete('/prioriteincident/delete/{id}',[pIncident::class,"destroy"]);
 Route::get('/incident/index',[IncidentController::class,"index"]);
 Route::get('/incident/show/{id}',[IncidentController::class,"show"]);
 Route::post('/incident/store', [IncidentController::class,"store"]);
-Route::put('/incident/update/{id}',[IncidentConroller::class,"update"]);
+Route::put('/incident/update/{id}',[IncidentController::class,"update"]);
 Route::delete('/incident/delete/{id}',[IncidentController::class,"destroy"]);
 
 // Definition des routes pour l'API StatutIncident
