@@ -113,6 +113,7 @@ class UtilisateurController extends Controller
                 return response()->json([
                     'status'=>200,
                     'message'=>"Connection success",
+                    'nom'=>$utilisateur->name,
                     'access_token'=>$token
                 ],200)->cookie('jwt',$token);
             }
