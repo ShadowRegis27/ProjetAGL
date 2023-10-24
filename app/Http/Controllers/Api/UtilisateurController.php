@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Utilisateur;
 use App\Models\RoleUtilisateur;
 use App\Http\Controllers\Api\RoleUtilisateurController;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class UtilisateurController extends Controller
 {
@@ -23,33 +25,17 @@ class UtilisateurController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            "nom"=>"required",
-            "prenom"=>"required",
-            "email"=>"required",
-            "password"=>"required",
-            "id_Role_Utilisateur"=>"required"
-        ]);
-        $roleutilisateur = RoleUtilisateur::where("id_Role_Utilisateur", $request->id_Role_Utilisateur)->first();
         $utilisateur = new Utilisateur();
-        if($roleutilisateur)
-        {
 
-            $utilisateur->id_Role_Utilisateur = $request->id_Role_Utilisateur;
-            $utilisateur->nom = $request->nom;
-            $utilisateur->prenom = $request->prenom;
+            $utilisateur->id_Role_Utilisateur = 1;
+            $utilisateur->name = $request->name;
             $utilisateur->email = $request->email;
-            $utilisateur->password = $request->password;
+            $utilisateur->password = Hash::make($request->password);
             $utilisateur->save();
             return response()->json([
-                "statut"=>1,
+                "status"=>200,
                 "message"=>"Utilisateur enregistré"
-            ], 200);
-        }
-        else
-        {
-
-        }
+            ]);
     }
 
     /**
@@ -61,7 +47,7 @@ class UtilisateurController extends Controller
         if($utilisateur)
         {
                 return response()->json([
-                    "statut"=>1,
+                    "status"=>1,
                     "Utilisateur"=>$utilisateur
                 ], 200);
 
@@ -113,4 +99,39 @@ class UtilisateurController extends Controller
             );
         }
     }
+
+    public function login(Request $request)
+    {
+
+        $utilisateur = Utilisateur::where('email','=',$request->email)->first();
+        if($utilisateur)
+        {
+            if(Hash::check($request->password, $utilisateur->password))
+            {
+                //Création d'un jeton token
+                $token = $utilisateur->createToken('auth_token')->plainTextToken;
+                return response()->json([
+                    'status'=>200,
+                    'message'=>"Connection success",
+                    'access_token'=>$token
+                ],200)->cookie('jwt',$token);
+            }
+            else
+            {
+                return response()->json([
+                    'status'=>0,
+                    'message'=> "Email ou Mot de passe Incorrect"
+                ]);
+            }
+        }
+        else
+        {
+            return response()->json([
+                'status'=>0,
+                'message'=>"l'utilisateur n'existe pas/ introuvable"
+            ],404);
+        }
+    }
 }
+
+

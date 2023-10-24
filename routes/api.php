@@ -10,7 +10,26 @@ use App\Http\Controllers\Api\StatutIncidentController;
 use App\Http\Controllers\Api\UtilisateurController;
 
 //Definition des routes pour l'API prioriteincident
-Route::get('/prioriteincident/index',[prioriteincidentController::class,"index"]);
+
+// Definition des routes pour l'API Role Utilisateur
+Route::get('/roleutilisateur/index',[RoleUtilisateurController::class,"index"]);
+Route::get('/roleutilisateur/show/{id}',[RoleUtilisateurController::class,"show"]);
+Route::post('/roleutilisateur/store', [RoleUtilisateurController::class,"store"]);
+Route::put('/roleutilisateur/update/{id}',[RoleUtilisateurController::class,"update"]);
+Route::delete('/roleutilisateur/delete/{id}',[RoleUtilisateurController::class,"destroy"]);
+
+//Definition des routes pour l'API  Utilisateur
+Route::get('/utilisateur/index',[UtilisateurController::class,"index"]);
+Route::get('/utilisateur/show/{id}',[UtilisateurController::class,"show"]);
+Route::post('/utilisateur/store', [UtilisateurController::class,"store"]);
+Route::post('/utilisateur/login', [UtilisateurController::class, 'login']);
+Route::put('/utilisateur/update/{id}',[UtilisateurController::class,"update"]);
+Route::delete('/utilisateur/delete/{id}',[UtilisateurController::class,"destroy"]);
+
+//Apres que l'utilisateurs se soit authentifié
+
+Route::group(['middleware'=>['auth:sanctum']],function(){
+    Route::get('/prioriteincident/index',[prioriteincidentController::class,"index"]);
 Route::get('/prioriteincident/show/{id}',[prioriteincidentController::class,"show"]);
 Route::post('/prioriteincident/store', [prioriteincidentController::class,"store"]);
 Route::put('/prioriteincident/update/{id}',[prioriteincidentController::class,"update"]);
@@ -37,16 +56,4 @@ Route::post('/statutincident/store', [StatutIncidentController::class,"store"]);
 Route::put('/statutincident/update/{id}',[StatutIncidentController::class,"update"]);
 Route::delete('/statutincident/delete/{id}',[StatutIncidentController::class,"destroy"]);
 
-// Definition des routes pour l'API Role Utilisateur
-Route::get('/roleutilisateur/index',[RoleUtilisateurController::class,"index"]);
-Route::get('/roleutilisateur/show/{id}',[RoleUtilisateurController::class,"show"]);
-Route::post('/roleutilisateur/store', [RoleUtilisateurController::class,"store"]);
-Route::put('/roleutilisateur/update/{id}',[RoleUtilisateurController::class,"update"]);
-Route::delete('/roleutilisateur/delete/{id}',[RoleUtilisateurController::class,"destroy"]);
-
-//Definition des routes pour l'API  Utilisateur
-Route::get('/utilisateur/index',[UtilisateurController::class,"index"]);
-Route::get('/utilisateur/show/{id}',[UtilisateurController::class,"show"]);
-Route::post('/utilisateur/store', [UtilisateurController::class,"store"]);
-Route::put('/utilisateur/update/{id}',[UtilisateurController::class,"update"]);
-Route::delete('/utilisateur/delete/{id}',[UtilisateurController::class,"destroy"]);
+});
