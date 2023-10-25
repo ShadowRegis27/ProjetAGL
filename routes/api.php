@@ -19,21 +19,30 @@ Route::put('/roleutilisateur/update/{id}',[RoleUtilisateurController::class,"upd
 Route::delete('/roleutilisateur/delete/{id}',[RoleUtilisateurController::class,"destroy"]);
 
 //Definition des routes pour l'API  Utilisateur
-Route::get('/utilisateur/index',[UtilisateurController::class,"index"]);
+
 Route::get('/utilisateur/show/{id}',[UtilisateurController::class,"show"]);
 Route::post('/utilisateur/store', [UtilisateurController::class,"store"]);
 Route::post('/utilisateur/login', [UtilisateurController::class, 'login']);
 Route::put('/utilisateur/update/{id}',[UtilisateurController::class,"update"]);
-Route::delete('/utilisateur/delete/{id}',[UtilisateurController::class,"destroy"]);
 
 //Apres que l'utilisateurs se soit authentifié
 
 Route::group(['middleware'=>['auth:sanctum']],function(){
-    Route::get('/prioriteincident/index',[prioriteincidentController::class,"index"]);
-Route::get('/prioriteincident/show/{id}',[prioriteincidentController::class,"show"]);
-Route::post('/prioriteincident/store', [prioriteincidentController::class,"store"]);
-Route::put('/prioriteincident/update/{id}',[prioriteincidentController::class,"update"]);
-Route::delete('/prioriteincident/delete/{id}',[prioriteincidentController::class,"destroy"]);
+
+    //
+
+    Route::get('/utilisateur/index',[UtilisateurController::class,"index"]);
+    //
+
+    Route::get('/utilisateur/logout', [UtilisateurController::class, 'logout']);
+//
+Route::get('/utilisateur/gardien', [UtilisateurController::class, 'gardien']);
+
+//
+Route::delete('/utilisateur/delete/{id}',[UtilisateurController::class,"destroy"]);
+
+//créér un utilisateur pour les admins
+Route::post('/utilisateur/create', [UtilisateurController::class,"create"]);
 
 //Definition des routes pour l'API Priorite Incident
  Route::get('/prioriteincident/index',[pIncident::class,"index"]);

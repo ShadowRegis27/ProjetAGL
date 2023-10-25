@@ -10,7 +10,12 @@ class IncidentController extends Controller
 {
     public function index()
     {
-        return Incident::all();
+        $incident=  Incident::all();
+
+        return response()->json([
+            'incidents'=> $incident,
+            'status'=>200
+        ]);
     }
 
     /**

@@ -17,7 +17,11 @@ class UtilisateurController extends Controller
      */
     public function index()
     {
-        return Utilisateur::all();
+        $utilisateur= Utilisateur::all();
+        return response()->json([
+            'utilisateur'=> $utilisateur,
+            'status'=>200
+        ]);
     }
 
     /**
@@ -38,6 +42,21 @@ class UtilisateurController extends Controller
             ]);
     }
 
+    public function create(Request $request)
+    {
+        $utilisateur = new Utilisateur();
+
+        $utilisateur->id_Role_Utilisateur = $request->id_Role_Utilisateur;
+        $utilisateur->name = $request->name;
+        $utilisateur->email = $request->email;
+        $utilisateur->password = Hash::make($request->password);
+        $utilisateur->save();
+        return response()->json([
+            "status"=>200,
+            "message"=>"Utilisateur enregistré"
+        ]);
+    }
+
     /**
      * Display the specified resource.
      */
@@ -53,6 +72,20 @@ class UtilisateurController extends Controller
 
         }
 
+    }
+
+    public function gardien()
+    {
+        $utilisateur = Utilisateur::where('id_Role_Utilisateur',2)->get();
+        if($utilisateur)
+        {
+                return response()->json([
+                    "utilisateurs"=>$utilisateur,
+                    "status"=>200
+
+                ]);
+
+        }
     }
 
     /**
@@ -132,6 +165,15 @@ class UtilisateurController extends Controller
                 'message'=>"l'utilisateur n'existe pas/ introuvable"
             ],404);
         }
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::user()->tokens()->delete();
+        return response()->json([
+            "status"=>200,
+            "message"=>"Deconnexion réussie"
+        ]);
     }
 }
 

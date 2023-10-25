@@ -37,7 +37,7 @@ class StatutIncidentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show( $id)
     {
         // API Fonction d'affichage d'un statut d'incident
         $statuIncident = StatuIncident::where("id_Statut_Incident",$id)->get();
